@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.saadi.message.Contact">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/new_con"
+        android:text="Add New Contact"
+        android:textColor="#ffff"
+        android:background="#699882"/>
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/cfl"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_con"
+        android:layout_marginTop="10dp"
+        android:textColor="#ffff"
+        android:background="#699882"
+        android:text="Import from contact list"/>
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/vl"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cfl"
+        android:layout_marginTop="10dp"
+        android:textColor="#ffff"
+        android:background="#699882"
+        android:text="View Saved Contact"/>
+
+</RelativeLayout>
