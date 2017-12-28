@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.saadi.message.DataListActivity">
     <ListView
-
         android:id="@+id/sam"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"

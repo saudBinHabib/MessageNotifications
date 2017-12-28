@@ -5,34 +5,61 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class Adncontact extends AppCompatActivity {
     EditText editTextPhone;
     EditText Name;
     Button btn;
-    Context context = this;
-    UserDb userDb;
+    UserDb db;
     SQLiteDatabase sqLiteDatabase;
-
+    String category=null;
+    Spinner sCategory;
     String name , number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adncontact);
 
+        sCategory = (Spinner) findViewById(R.id.spinnerSf);
+        db = new UserDb(this);
+        final String[] categoryArray = db.getCategories();
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,categoryArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sCategory.setAdapter(adapter);
+
+        sCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                category = categoryArray[position];
+                Toast.makeText(Adncontact.this, "category is = " +  category , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         Name = (EditText) findViewById(R.id.editTextName);
-        if(getIntent().getStringExtra("type").equalsIgnoreCase("single")){
-            name = getIntent().getStringExtra("name");
-            number = getIntent().getStringExtra("number");
-            editTextPhone.setText(number);
-            Name.setText(name);
-        }else{
-            editTextPhone.setText("Majboor");
-            Name.setText("Rabia");
+        if(getIntent().getStringExtra("type")!=null) {
+            if (getIntent().getStringExtra("type").equalsIgnoreCase("single")) {
+                name = getIntent().getStringExtra("name");
+                number = getIntent().getStringExtra("number");
+                editTextPhone.setText(number);
+                Name.setText(name);
+            }
         }
         btn = (Button) findViewById(R.id.savebtn);
 
@@ -40,9 +67,16 @@ public class Adncontact extends AppCompatActivity {
     public void addContact(View view){
         String name =  Name.getText().toString();
         String mob = editTextPhone.getText().toString();
-        userDb = new UserDb(context);
-        sqLiteDatabase = userDb.getWritableDatabase();
-        userDb.addInformations(name,mob,sqLiteDatabase);
-        Toast.makeText(context, "Data Saved", Toast.LENGTH_SHORT).show();
+        if(name.isEmpty() || mob.isEmpty() || category == null ){
+            Toast.makeText(this, "Please Fill all the data.", Toast.LENGTH_SHORT).show();
+        }else{
+            DataProvider d= new DataProvider();
+            d.setMob(mob);
+            d.setName(name);
+            d.setCategroy(category);
+            db.addInformations(d);
+            Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

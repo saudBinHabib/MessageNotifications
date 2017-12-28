@@ -1,37 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.saadi.message.Adncontact">
 
-    <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:isScrollContainer="false" />
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_below="@+id/editTextName"
-        android:id="@+id/editTextPhone"
-        android:layout_centerHorizontal="true"
-        android:hint="Phone number"
-        android:isScrollContainer="false" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/savebtn"
-        android:text="Save"
-        android:textColor="#ffff"
-        android:background="#699882"
-        android:onClick="addContact"
-        android:layout_below="@+id/editTextPhone"/>
-</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Add Contact Details"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:isScrollContainer="false" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_below="@+id/editTextName"
+            android:id="@+id/editTextPhone"
+            android:gravity="center"
+            android:hint="Phone number"
+            android:isScrollContainer="false" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/spinnerSf"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/savebtn"
+            android:text="Save"
+            android:textColor="#ffff"
+            android:background="#699882"
+            android:onClick="addContact"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
+</LinearLayout>

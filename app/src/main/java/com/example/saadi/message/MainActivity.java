@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.category) {
-            Intent intent = new Intent(this, Categories.class);
+            Intent intent = new Intent(this, AddCategory.class);
             startActivity(intent);
         } else if (id == R.id.contact) {
             Intent intent = new Intent(this, Contact.class);
