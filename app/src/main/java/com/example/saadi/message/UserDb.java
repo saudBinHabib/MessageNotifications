@@ -167,27 +167,27 @@ public class UserDb extends SQLiteOpenHelper {
     }
 
 
-    // Getting All Reminders
+    // Getting All Categories
     public String[] getCategories() {
 
         String selectQuery = "SELECT DISTINCT "+ KEY_CATEGORY+" FROM  " + TABLE_CATEGORY ;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        String [] room = new String[cursor.getCount()];
+        String [] categories = new String[cursor.getCount()];
         // looping through all rows and adding to list
         int counter = 0;
         if (cursor.moveToFirst()) {
             do {
                 int column = cursor.getColumnIndex(KEY_CATEGORY);
-                room[counter] = cursor.getString(column);
+                categories[counter] = cursor.getString(column);
                 counter++;
-                // Adding contact to list
+                // Adding categories to list
             } while (cursor.moveToNext());
         }
 
-        // return contact list
-        return room;
+        // return categories list
+        return categories;
     }
 
 }
