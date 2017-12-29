@@ -10,15 +10,15 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by Saadi on 26-Dec-17.
+ * Created by saudkhan on 12/29/2017.
  */
 
-public class ImportListAdapter  extends BaseAdapter {
+public class NotificationList  extends BaseAdapter {
 
     List<DataProvider> list;
     Activity context;
 
-    public ImportListAdapter(Activity context, List<DataProvider> list){
+    public NotificationList(Activity context, List<DataProvider> list){
         this.list= list;
         this.context = context;
     }
@@ -43,16 +43,17 @@ public class ImportListAdapter  extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.import_contact_row, null, true);
+        View rowView = inflater.inflate(R.layout.notification_row, null, true);
 
-        TextView txtName = (TextView) rowView.findViewById(R.id.contactName);
+        TextView txtName = (TextView) rowView.findViewById(R.id.notificationName);
         txtName.setText(list.get(position).getName());
 
-        TextView txtNumber = (TextView) rowView.findViewById(R.id.contactNumber);
+        TextView txtNumber = (TextView) rowView.findViewById(R.id.notificationNumber);
         txtNumber.setText(list.get(position).getMob());
 
 
         return  rowView;
     }
 }
+
 

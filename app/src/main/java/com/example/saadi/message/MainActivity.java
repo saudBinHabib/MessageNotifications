@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, Contact.class);
             startActivity(intent);
         } else if (id == R.id.notification) {
-
+            Intent intent = new Intent(this,NotificationCategory.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

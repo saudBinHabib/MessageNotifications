@@ -148,9 +148,9 @@ public class UserDb extends SQLiteOpenHelper {
 
 
     // Getting All Contacts
-    public List<DataProvider> getInformation() {
+    public List<DataProvider> getInformation(String category) {
 
-        String selectQuery = "SELECT * from "+ TABLE_CONTACTS+" ; " ;
+        String selectQuery = "SELECT * from "+ TABLE_CONTACTS+" where " + KEY_CATEGORY + " = '" + category + "';" ;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -163,8 +163,6 @@ public class UserDb extends SQLiteOpenHelper {
                 dp.setName(cursor.getString(column1));
                 int column2 = cursor.getColumnIndex(KEY_NUMBER);
                 dp.setMob(cursor.getString(column2));
-                int column3 = cursor.getColumnIndex(KEY_CATEGORY);
-                dp.setCategroy(cursor.getString(column3));
                 contacts.add(dp);
                 // Adding contact to list
             } while (cursor.moveToNext());
@@ -196,6 +194,53 @@ public class UserDb extends SQLiteOpenHelper {
 
         // return categories list
         return categories;
+    }
+
+    // Getting All Number
+    public String[] getAllNumbers() {
+
+        String selectQuery = "SELECT DISTINCT "+ KEY_NUMBER+" FROM  " + TABLE_CONTACTS ;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String [] number = new String[cursor.getCount()];
+        // looping through all rows and adding to list
+        int counter = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                int column = cursor.getColumnIndex(KEY_NUMBER);
+                number[counter] = cursor.getString(column);
+                counter++;
+                // Adding categories to list
+            } while (cursor.moveToNext());
+        }
+
+        // return categories list
+        return number;
+    }
+
+
+    // Getting Numbers according to category
+    public String[] getNumbersAccordingToCategory(String category) {
+
+        String selectQuery = "SELECT DISTINCT "+ KEY_NUMBER+" FROM  " + TABLE_CONTACTS + " where " + KEY_CATEGORY + " = '" + category + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String [] number = new String[cursor.getCount()];
+        // looping through all rows and adding to list
+        int counter = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                int column = cursor.getColumnIndex(KEY_NUMBER);
+                number[counter] = cursor.getString(column);
+                counter++;
+                // Adding categories to list
+            } while (cursor.moveToNext());
+        }
+
+        // return categories list
+        return number;
     }
 
 }

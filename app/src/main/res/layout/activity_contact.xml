@@ -12,13 +12,14 @@
         android:id="@+id/new_con"
         android:text="Add New Contact"
         android:textColor="#ffff"
+        android:layout_above="@+id/cfl"
         android:background="#699882"/>
     <Button
         android:layout_width="match_parent"
         android:id="@+id/cfl"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/new_con"
         android:layout_marginTop="10dp"
+        android:layout_centerVertical="true"
         android:textColor="#ffff"
         android:background="#699882"
         android:text="Import from contact list"/>
