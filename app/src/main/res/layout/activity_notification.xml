@@ -18,7 +18,7 @@
             android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium"
             android:id="@+id/notificationTitle"
-            android:text="Dummy"
+            android:text="Notification"
             android:textStyle="bold|italic"
             />
 
