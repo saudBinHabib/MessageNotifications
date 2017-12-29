@@ -41,7 +41,6 @@ public class Adncontact extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 category = categoryArray[position];
-                Toast.makeText(Adncontact.this, "category is = " +  category , Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -74,8 +73,13 @@ public class Adncontact extends AppCompatActivity {
             d.setMob(mob);
             d.setName(name);
             d.setCategroy(category);
-            db.addInformations(d);
-            Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show();
+            int check = db.addInformations(d);
+
+            if(check==1){
+                Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "Contact already exists in this category", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

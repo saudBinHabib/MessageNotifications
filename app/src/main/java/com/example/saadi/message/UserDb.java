@@ -77,7 +77,7 @@ public class UserDb extends SQLiteOpenHelper {
 
         String CREATE_TABLE =
                 "CREATE TABLE "+ TABLE_CATEGORY +" (" +
-                        KEY_CATEGORY + "  varchar(50) NOT NULL" +
+                        KEY_CATEGORY + "  varchar(50) PRIMARY KEY" +
                         ");";
 
         Log.e("DATATBASE QUERY" , CREATE_TABLE);
@@ -106,17 +106,25 @@ public class UserDb extends SQLiteOpenHelper {
     }
 
     // Adding new Contact Information
-    void addInformations(DataProvider dp) {
+    int addInformations(DataProvider dp) {
         SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT * FROM  " + TABLE_CONTACTS + " where " + KEY_NAME + " = '" + dp.getName()+"' and " + KEY_NUMBER + " = '" + dp.getMob()+"' and " + KEY_CATEGORY + " = '" + dp.getCategroy()+"';" ;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            db.close();
+            return 0;
+        }else{
+            ContentValues values = new ContentValues();
+            values.put(KEY_NAME, dp.getName());
+            values.put(KEY_NUMBER, dp.getMob());
+            values.put(KEY_CATEGORY,dp.getCategroy());
 
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, dp.getName());
-        values.put(KEY_NUMBER, dp.getMob());
-        values.put(KEY_CATEGORY,dp.getCategroy());
-
-        // Inserting Row
-        db.insert(TABLE_CONTACTS, null, values);
-        db.close(); // Closing database connection
+            // Inserting Row
+            db.insert(TABLE_CONTACTS, null, values);
+            db.close();
+            return 1;
+        }
+ // Closing database connection
     }
 
 

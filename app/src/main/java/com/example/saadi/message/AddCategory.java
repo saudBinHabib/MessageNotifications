@@ -28,7 +28,7 @@ public class AddCategory extends AppCompatActivity {
             long rowInserted = db.addCategory(cat);
 
             if(rowInserted != -1)
-                Toast.makeText(this, "New row added, row id: " + rowInserted, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "New Category Inserted " , Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(this, "Something wrong", Toast.LENGTH_SHORT).show();
         }
