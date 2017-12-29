@@ -23,6 +23,10 @@ public class NotificationList  extends BaseAdapter {
         this.context = context;
     }
 
+    public void overMethod(List<DataProvider> list){
+        this.list=list;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {

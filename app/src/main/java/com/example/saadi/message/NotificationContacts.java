@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,6 +20,8 @@ public class NotificationContacts extends AppCompatActivity {
     List<DataProvider> contacts;
     String category=null;
     Intent intent;
+    EditText et;
+    NotificationList adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +30,13 @@ public class NotificationContacts extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         db = new UserDb(this);
+        et = (EditText) findViewById(R.id.etSearchName);
         if(getIntent().getStringExtra("category")!= null){
             category = getIntent().getStringExtra("category");
             contacts = db.getInformation(category);
         }
         lstContacts = (ListView) findViewById(R.id.notificationContact);
-        NotificationList adapter = new NotificationList(this, contacts);
+        adapter = new NotificationList(this, contacts);
         lstContacts.setAdapter(adapter);
         lstContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -53,5 +58,17 @@ public class NotificationContacts extends AppCompatActivity {
         intent.putExtra("category" ,category );
         startActivity(intent);
 
+    }
+
+
+    public void searchContact(View view) {
+        String search = et.getText().toString();
+        if (search.isEmpty()) {
+            Toast.makeText(this, "Please Enter Any Character of the Name", Toast.LENGTH_SHORT).show();
+        } else {
+            contacts = db.getSpecificInformation(category,search);
+            adapter.overMethod(contacts);
+            Toast.makeText(this, "Data set Changeds", Toast.LENGTH_SHORT).show();
+        }
     }
 }

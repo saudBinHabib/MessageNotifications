@@ -173,6 +173,32 @@ public class UserDb extends SQLiteOpenHelper {
     }
 
 
+    // Getting specific Contacts
+    public List<DataProvider> getSpecificInformation(String category, String name) {
+
+        String selectQuery = "SELECT * from "+ TABLE_CONTACTS+" where " + KEY_NAME + " like '%" + name + "%' and " + KEY_CATEGORY + " = '" + category + "';" ;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        List<DataProvider> contacts = new ArrayList<DataProvider>();
+        if (cursor.moveToFirst()) {
+            do {
+                DataProvider dp = new DataProvider();
+                int column1 = cursor.getColumnIndex(KEY_NAME);
+                dp.setName(cursor.getString(column1));
+                int column2 = cursor.getColumnIndex(KEY_NUMBER);
+                dp.setMob(cursor.getString(column2));
+                contacts.add(dp);
+                // Adding contact to list
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        return contacts;
+    }
+
+
     // Getting All Categories
     public String[] getCategories() {
 
