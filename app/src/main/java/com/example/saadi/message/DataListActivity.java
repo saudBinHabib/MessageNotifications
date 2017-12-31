@@ -51,10 +51,14 @@ public class DataListActivity extends AppCompatActivity {
         cursor = userDb.getInformations(sqLiteDatabase);
         if (cursor.moveToFirst()){
             do {
-                String name,mob;
+                String name,mob,cat;
                 name=  cursor.getString(0);
                 mob= cursor.getString(1);
-                DataProvider dataProvider = new DataProvider(name,mob);
+                cat = cursor.getString(2);
+                DataProvider dataProvider = new DataProvider();
+                dataProvider.setName(name);
+                dataProvider.setMob(mob);
+                dataProvider.setCategroy(cat);
                 data.add(dataProvider);
                 listDataAdapter.add(dataProvider);
             }while (cursor.moveToNext());

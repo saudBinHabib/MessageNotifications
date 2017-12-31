@@ -141,7 +141,7 @@ public class UserDb extends SQLiteOpenHelper {
     */
     public Cursor getInformations (SQLiteDatabase db)
     {Cursor cursor;
-        String[] projections = {KEY_NAME, KEY_NUMBER};
+        String[] projections = {KEY_NAME, KEY_NUMBER,KEY_CATEGORY};
         cursor = db.query(TABLE_CONTACTS,projections,null,null,null,null,null);
         return cursor;
     }

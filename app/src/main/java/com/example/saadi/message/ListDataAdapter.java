@@ -24,7 +24,7 @@ public class ListDataAdapter extends ArrayAdapter {
     }
         static class LayoutHandler
         {
-            TextView NAME,MOB;
+            TextView NAME,MOB,CAT;
 
         }
 
@@ -56,6 +56,7 @@ public class ListDataAdapter extends ArrayAdapter {
             layoutHandler = new LayoutHandler();
             layoutHandler.NAME =(TextView) row.findViewById(R.id.txtusername);
             layoutHandler.MOB = (TextView) row.findViewById(R.id.txtusernum);
+            layoutHandler.CAT = (TextView) row.findViewById(R.id.txtusercat);
             row.setTag(layoutHandler);
 
         }
@@ -66,6 +67,7 @@ public class ListDataAdapter extends ArrayAdapter {
         DataProvider dataProvider = (DataProvider) this.getItem(position);
         layoutHandler.NAME.setText(dataProvider.getName());
         layoutHandler.MOB.setText(dataProvider.getMob());
+        layoutHandler.CAT.setText(dataProvider.getCategroy());
         return row;
     }
 }
