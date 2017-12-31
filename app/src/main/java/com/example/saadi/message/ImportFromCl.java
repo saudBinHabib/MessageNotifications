@@ -119,46 +119,29 @@ public class ImportFromCl extends AppCompatActivity {
         List<String> value1 = new ArrayList<>();
         List<String> value2 = new ArrayList<>();
 
-        // Get the Cursor of all the contacts
+        Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null, null);
+        while (phones.moveToNext())
+        {
+            //Read Contact Name
+            String name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            //Read Phone Number
+            String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-        String phoneNumber = null;
-        Uri ContacUri = ContactsContract.Contacts.CONTENT_URI;
-        String displayName = ContactsContract.Contacts.DISPLAY_NAME;
-        String HAS_PHONE_NUMBER = ContactsContract.Contacts.HAS_PHONE_NUMBER;
-        String number = ContactsContract.CommonDataKinds.Phone.NUMBER;
-        String _ID = ContactsContract.Contacts._ID;
-        Uri PhoneContractURI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-        String PHONE_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
-
-        Cursor cursor = getContentResolver().query(ContacUri,null,null,null,null );
-        if(cursor.getCount()>0){
-            while(cursor.moveToNext()){
-                String contact_id = cursor.getString(cursor.getColumnIndex(_ID));
-                String name = cursor.getString(cursor.getColumnIndex(displayName));
-                if(value1 != null) {
-                    if (value1.contains(name)) {
-                        continue;
-                    }
-                }
-                value1.add(name);
-                int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex(HAS_PHONE_NUMBER)));
-                if(hasPhoneNumber>0) {
-                    Cursor phoneCursor = getContentResolver().query(PhoneContractURI, null, PHONE_CONTACT_ID + "=?", new String[]{contact_id}, null);
-                    while (phoneCursor.moveToNext()) {
-                        phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(number));
-                        value2.add(phoneNumber);
-                    }
-                    phoneCursor.close();
+            if(value1!=null || value2!=null) {
+                if(value1.contains(name)){
+                    continue;
                 }
             }
-            cursor.close();
-            namearray = value1.toArray(new String[0]);
-            phonearray = value2.toArray(new String[0]);
-            for(int i=0; i< namearray.length; i++){
-                contacts.add(new DataProvider(namearray[i],phonearray[i]));
-            }
+            value1.add(name);
+            value2.add(phoneNumber);
         }
+        phones.close();
 
+        namearray = value1.toArray(new String[0]);
+        phonearray = value2.toArray(new String[0]);
+        for(int i=0; i< namearray.length; i++){
+            contacts.add(new DataProvider(namearray[i],phonearray[i]));
+        }
 
         return contacts;
     }

@@ -1,10 +1,13 @@
 package com.example.saadi.message;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ public class DataListActivity extends AppCompatActivity {
         Cursor cursor;
         ListDataAdapter listDataAdapter;
         SharedPreferences sp;
+        List<DataProvider> data = new ArrayList<>();
         SharedPreferences.Editor editor;
         List<Contact> lstContact;
 
@@ -32,6 +36,15 @@ public class DataListActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.sam);
         listDataAdapter = new ListDataAdapter(getApplicationContext(),R.layout.row_layout);
         listView.setAdapter(listDataAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(DataListActivity.this, Notification.class);
+                intent.putExtra("type", "single");
+                intent.putExtra("number" , data.get(position).getMob() );
+                startActivity(intent);
+            }
+        });
 
         userDb = new UserDb(getApplicationContext());
         sqLiteDatabase = userDb.getReadableDatabase();
@@ -42,6 +55,7 @@ public class DataListActivity extends AppCompatActivity {
                 name=  cursor.getString(0);
                 mob= cursor.getString(1);
                 DataProvider dataProvider = new DataProvider(name,mob);
+                data.add(dataProvider);
                 listDataAdapter.add(dataProvider);
             }while (cursor.moveToNext());
 
